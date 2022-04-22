@@ -3,7 +3,7 @@ const path = require('path');
 const fs = require('fs');
 
 const APP = express();
-const PORT = 3000;
+const PORT = 3001;
 
 const ASSETS_DIR = '/Users/ricane/Documents/Projets/coding/mapping/public/assets';
 let assetContent = [];
@@ -14,9 +14,11 @@ APP.get("/", (req, res) => {
     res.send("This is from express.js");
 });
 
-APP.get("/listDirContent", (req, res) => {
-    listDirContent(ASSETS_DIR);
-    res.send(assetContent);
+APP.get("/analyze", (req, res) => {
+    // listDirContent(ASSETS_DIR);
+    res.json("Done");
+    res.send();
+    assetContent = [];
 });
 
 APP.post('/', (req, res) => {
