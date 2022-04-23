@@ -1,38 +1,62 @@
 const express = require("express");
+const cors = require('cors');
+const https = require('https');
 const path = require('path');
 const fs = require('fs');
+const util = require('util')
 
 const APP = express();
+APP.use(cors());
 const PORT = 3001;
-
-const ASSETS_DIR = '/Users/ricane/Documents/Projets/coding/mapping/public/assets';
-let assetContent = [];
+const ASSETS_DIR = '/Users/ricane/Documents/Projets/coding/mapping/public/assets/fonts';
 
 // APP.use(express.static('public'));
 
-APP.get("/", (req, res) => {
-    res.send("This is from express.js");
-});
+APP.get("/", (req, res) => { console.log(req); res.send("This is from express"); });
 
-APP.get("/analyze", (req, res) => {
-    // listDirContent(ASSETS_DIR);
-    res.json("Done");
-    res.send();
-    assetContent = [];
+APP.get("/analyze", async (req, res) => {
+    console.log("\n\nNew request for analysis\n");
+    await readDirectory(ASSETS_DIR)
+        .then(filenames => {
+            var assetContent = [];
+            filenames.forEach(file => {
+                assetContent.push(path.join(ASSETS_DIR, file));
+            });
+
+            console.log(assetContent);
+            res.send(assetContent);
+        })
+        // If promise is rejected
+        .catch(err => {
+            console.log("Error code -> ${err.code}");
+            res.send('Fail');
+        });
 });
 
 APP.post('/', (req, res) => {
     res.send("Got a POST request");
 });
 
+const server = https.createServer({
+    key: fs.readFileSync(`${__dirname}/localhost-key.pem`, 'utf8'),
+    cert: fs.readFileSync(`${__dirname}/localhost.pem`, 'utf8')
+  }, APP);
 
-APP.listen(PORT, () => {
-    console.log("Express.js server listening on PORT: " + PORT)
-});
+server.listen(PORT, () => { console.log("Express.js server listening on PORT: " + PORT) });
 
-function listDirContent(folder) {
+const readDir = util.promisify(fs.readdir)
+
+const readDirectory = async (path) => {
+    const filenames = await readDir(path)
+    console.log(typeof filenames)
+    return filenames;
+}
+
+
+const listDirContent = async (folder) => {
+    var tempReader = [];
     console.log("Listing content of: " + folder);
-    fs.readdir(folder, (err, files) => {
+    await fs.readdir(folder, (err, files) => {
         if (err) {
             console.log(err);
         }
@@ -42,18 +66,23 @@ function listDirContent(folder) {
                 var dest = path.join(folder, file);
                 if (fs.lstatSync(dest).isDirectory()) {
                     // console.log('Folder found: ' + dest);
-                    // console.log('Folder found');
-                    listDirContent(dest);
+                    console.log('Folder found');
+                    // listDirContent(dest);
+                    // assetContent = listDirContent(ASSETS_DIR, assetContent);
                 }
-                else if (!fs.lstatSync(dest).isFile()){
+                else if (!fs.lstatSync(dest).isFile()) {
                     console.log('Unknown : ' + dest);
                 }
                 else {
-                    // console.log('File : ' + dest);
-                    assetContent.push(dest);
+                    tempReader.push(String(dest));
                 }
             })
         }
+        console.log('Current number of assets: ' + tempReader.length);
+        console.log("Temp from inside");
+        console.log(tempReader);
+        return tempReader;
     });
-    console.log('Current number of assets: ' + assetContent.length);
 }
+
+const listDirContentAsync = util.promisify(listDirContent)
