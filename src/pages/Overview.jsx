@@ -4,9 +4,11 @@ import NavBar from '../component/NavBar';
 
 const Overview = () => {
     return (
-        <div>
+        <div className='overview'>
             <NavBar />
-            <h3>Overview</h3>
+            <div>
+                <h3>Overview</h3>
+            </div>
         </div>
     );
 };

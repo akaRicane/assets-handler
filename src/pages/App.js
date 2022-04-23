@@ -16,13 +16,15 @@ const App = () => {
     }
 
     return (
-        <div>
+        <div className='app'>
             <NavBar />
-            <h3>App</h3>
-            <Analyzer setAssetsList={setAssetsList} assetsFolder={assetsFolder} />
-            <input type='text' onChange={handleAssetsFolderInput} />
-            <p>{assetsFolder}</p>
-            <AssetsList assetsList={assetsList} />
+            <div>
+                <h3>App</h3>
+                <Analyzer setAssetsList={setAssetsList} assetsFolder={assetsFolder} />
+                <input type='text' onChange={handleAssetsFolderInput} />
+                <p>{assetsFolder}</p>
+                <AssetsList assetsList={assetsList} />
+            </div>
         </div>
     );
 };

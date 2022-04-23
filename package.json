@@ -12,7 +12,8 @@
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
-    "recursive-readdir": "^2.2.2"
+    "recursive-readdir": "^2.2.2",
+    "sass": "^1.50.1"
   },
   "scripts": {
     "start-client": "react-scripts start",

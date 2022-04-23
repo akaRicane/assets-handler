@@ -1,0 +1,39 @@
+$color-bgn: #a8a8a7;
+$color-bgn-app: #dddd7a;
+$color-bgn-overview: #d7a97a;
+
+$white: #ddd;
+$black: #333;
+
+$portrait-width-thresh: 850px;
+
+* {
+  box-sizing: border-box;
+  margin: 5;
+  padding: 1;
+}
+body {
+  margin: 0rem 0rem 0rem 0rem;
+  color: $black;
+}
+button {
+  cursor: pointer;
+}
+li {
+  list-style-type: none;
+}
+a {
+  text-decoration: none;
+  color: $black;
+  cursor: pointer;
+}
+a:visited {
+  color:$black;
+}
+.app, .overview {
+  display: flex;
+
+  @media screen and (max-width: $portrait-width-thresh){
+    display: block !important;
+  }
+}
