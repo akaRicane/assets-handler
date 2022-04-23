@@ -8,14 +8,14 @@ var recursive = require('recursive-readdir');
 const APP = express();
 APP.use(cors());
 const PORT = 3001;
-const ASSETS_DIR = '/Users/ricane/Documents/Projets/coding/mapping/public/assets';
 
 APP.get("/", (req, res) => { console.log(req); res.send("This is from express"); });
 
 APP.get("/analyze", async (req, res) => {
-    console.log("\n\nNew request to Analyze assets");
+    const folder = req.query["folder"]
+    console.log("\n\nNew request to Analyze assets (" + folder + ")");
     var dirReader = [];
-    await recursive(ASSETS_DIR)
+    await recursive(folder)
     .then((files) => {
         for (const [key, file] of Object.entries(files)) {dirReader.push(file);}
         console.log("Assets analysis is done ! (found: " + dirReader.length + ")\n");

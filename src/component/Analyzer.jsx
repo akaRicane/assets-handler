@@ -1,14 +1,14 @@
 import React, { } from 'react';
 import axios from 'axios';
 
-const Analyzer = ({setAssetsList}) => {
+const Analyzer = ({setAssetsList, assetsFolder}) => {
 
     const requestAnalysis = () => {
         console.log('Request analysis to server ...');
-        axios.get('https://localhost:3001/analyze')
+        axios.get('https://localhost:3001/analyze', {params: {"folder": assetsFolder}})
             .then(res => {
-                console.log(res.data);
                 setAssetsList(res.data);
+                console.log("Assets analysis is done ! (found " + res.data.length + ")");
             })
             .catch(err => {
                 console.log("... server request failed !");
