@@ -1,20 +1,23 @@
 import React from 'react';
-import { AnalyzerContext } from '../App';
 
-const AssetsList = () => {
-
-    const context = React.useContext(AnalyzerContext);
-
+const AssetsList = ({ assets, cat, setChosenFile }) => {
     return (
-        <table>
-            <tbody>
+        <table id={"assetList-table"}>
+            <tbody id={"assetList-body"}>
                 {
-                    context.assetsList.map((elem, idx) => {
-                        return (
-                            <tr key={'assetList-cell-' + idx}>
-                                <td>{elem}</td>
-                            </tr>
-                        )})
+                    // eslint-disable-next-line
+                    assets.map((asset, key) => {
+                        const fileName = asset.file;
+                        const fileCat = asset.cat;
+                        if (fileCat === cat) {
+                            return (
+                                <tr id={"assetList-row-" + { key }}>
+
+                                    <td id={"assetList-td-btn-" + { key }}><button onClick={() => setChosenFile(fileName)}>🔎</button></td>
+                                    <td id={"assetList-td-" + { key }}>{fileName}</td>
+                                </tr>
+                            )}
+                        })
                 }
             </tbody>
         </table>

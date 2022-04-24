@@ -12,28 +12,37 @@ $portrait-width-thresh: 850px;
   margin: 5;
   padding: 1;
 }
+
 body {
   margin: 0rem 0rem 0rem 0rem;
   color: $black;
 }
+
 button {
   cursor: pointer;
 }
+
 li {
   list-style-type: none;
 }
+
 a {
   text-decoration: none;
   color: $black;
   cursor: pointer;
 }
+
 a:visited {
-  color:$black;
+  color: $black;
 }
-.app, .overview, .home {
+
+.app,
+.overview,
+.home {
   display: flex;
 
-  @media screen and (max-width: $portrait-width-thresh){
+  @media screen and (max-width: $portrait-width-thresh) {
     display: block !important;
   }
 }
+

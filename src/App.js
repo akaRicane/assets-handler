@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Route, Routes } from 'react-router-dom';
+import axios from 'axios';
 
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
@@ -10,7 +11,25 @@ const AnalyzerContext = React.createContext();
 const App = () => {
 
     const [assetsList, setAssetsList] = React.useState(["init"]);
-    const [assetsFolder, setAssetsFolder] = useState('/Users/ricane/Documents/Projets/coding/mapping/public/assets');
+    const [assetsFolder, setAssetsFolder] = React.useState('/Users/ricane/Documents/Projets/coding/assets_tests');
+
+    React.useEffect(() => {
+        requestAssetsDb()
+    }, [])
+
+    const requestAssetsDb = () => {
+        console.log('Request loadAssetsDb to server ...');
+        axios.get('https://localhost:3001/loadAssetsDb')
+            .then(res => {
+                setAssetsList(res.data.data);
+                console.log("assetsDb is loaded ! (found " + res.data.data.length + " from: "+ res.data.folder + ")");
+            })
+            .catch(err => {
+                console.log("... server request failed !");
+                console.log(err);
+            });
+
+    };
 
     return (
         <div className='app'>

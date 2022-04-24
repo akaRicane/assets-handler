@@ -1,3 +1,15 @@
 .overview {
     background: $color-bgn-overview;
+
+    .overwiew-assetsList {
+        float: left;
+        width: 100%;
+        height: 100%;
+    }
+    
+    .overwiew-fileOperations {
+        float: right;
+        width: 100px;
+        height: 100%;
+    }
 }

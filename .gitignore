@@ -26,3 +26,4 @@ yarn-error.log*
 # personnal files
 /server/localhost-key.pem
 /server/localhost.pem
+/server/assetsbase.db
