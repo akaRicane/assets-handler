@@ -1,23 +1,20 @@
 import React from 'react';
+import { AnalyzerContext } from '../App';
 
-const AssetsList = ({ assetsList }) => {
+const AssetsList = () => {
+
+    const context = React.useContext(AnalyzerContext);
+
     return (
         <table>
-            <thead>
-                <tr>
-                    <th>Assets List</th>
-                </tr>
-            </thead>
-
             <tbody>
                 {
-                    assetsList.map((elem, idx) => {
+                    context.assetsList.map((elem, idx) => {
                         return (
-                            <tr key={'assetList-cell-'+idx}>
+                            <tr key={'assetList-cell-' + idx}>
                                 <td>{elem}</td>
                             </tr>
-                        )
-                    })
+                        )})
                 }
             </tbody>
         </table>

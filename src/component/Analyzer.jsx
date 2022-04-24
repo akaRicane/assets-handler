@@ -1,13 +1,16 @@
 import React from 'react';
 import axios from 'axios';
+import { AnalyzerContext } from '../App';
 
-const Analyzer = ({setAssetsList, assetsFolder}) => {
+const Analyzer = () => {
+
+    const context = React.useContext(AnalyzerContext);
 
     const requestAnalysis = () => {
         console.log('Request analysis to server ...');
-        axios.get('https://localhost:3001/analyze', {params: {"folder": assetsFolder}})
+        axios.get('https://localhost:3001/analyze', { params: { "folder": context.assetsFolder } })
             .then(res => {
-                setAssetsList(res.data);
+                context.setAssetsList(res.data);
                 console.log("Assets analysis is done ! (found " + res.data.length + ")");
             })
             .catch(err => {
@@ -18,8 +21,8 @@ const Analyzer = ({setAssetsList, assetsFolder}) => {
     };
 
     return (
-        <div>
-            <button onClick={requestAnalysis}>Analyze</button>
+        <div id='analyzer'>
+            <button id='analyzer-Btn' onClick={requestAnalysis}>Analyze</button>
         </div>
     );
 };

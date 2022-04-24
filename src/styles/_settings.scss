@@ -30,7 +30,7 @@ a {
 a:visited {
   color:$black;
 }
-.app, .overview {
+.app, .overview, .home {
   display: flex;
 
   @media screen and (max-width: $portrait-width-thresh){
