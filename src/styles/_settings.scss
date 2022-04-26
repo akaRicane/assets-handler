@@ -1,6 +1,6 @@
-$color-bgn: #a8a8a7;
-$color-bgn-app: #dddd7a;
-$color-bgn-overview: #d7a97a;
+$color-bgn: #ffaf36;
+$color-bgn-app: #a8a8a7;
+$color-bgn-overview: #a8a8a7;
 
 $white: #ddd;
 $black: #333;
@@ -16,6 +16,8 @@ $portrait-width-thresh: 850px;
 body {
   margin: 0rem 0rem 0rem 0rem;
   color: $black;
+  height: 100%;
+    width: 100%;
 }
 
 button {

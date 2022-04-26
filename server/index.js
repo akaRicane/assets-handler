@@ -18,10 +18,13 @@ APP.get("/", (req, res) => { console.log(req); res.send("This is from express");
 APP.get("/loadAssetsDb", (req, res) => {
     console.log("\n\nNew request to load AssetsDb");
     assetsdb.find({}, (err, docs) => {
-        const doc = docs.at(-1)['files'];
-        const folder = docs.at(-1)['folder'];
-        console.log("AssetsDb loading is done ! (found: " + doc.length + ")\n");
-        res.json({data: doc, folder: folder});
+        if (docs.length !== 0) {
+
+            const doc = docs.at(-1)['files'];
+            const folder = docs.at(-1)['folder'];
+            console.log("AssetsDb loading is done ! (found: " + doc.length + ")\n");
+            res.json({data: doc, folder: folder});
+        }
     })
 });
 

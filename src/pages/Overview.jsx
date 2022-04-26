@@ -38,16 +38,32 @@ const Overview = () => {
             <NavBar />
             <div className='overwiew-assetsList'>
                 <h3>Selection</h3>
-                {
-                    categories.map((asset, key) => {
-                        return (<li><button id={"cat-btn" + { key }} onClick={() => handleCatButtonClick(asset)}>{asset}</button></li>)
-                    })
-                }
+                <table>
+                    <tbody>
+
+                        {
+                            categories.map((asset, key) => {
+                                if (key % 3 === 0) {
+                                    return (
+                                        <tr>
+                                            <td><button id={"cat-btn" + { key }} onClick={() => handleCatButtonClick(asset)}>{asset}</button></td>
+                                        </tr>
+                                    )
+                                }
+                                else {
+                                    return (
+                                            <td><button id={"cat-btn" + { key }} onClick={() => handleCatButtonClick(asset)}>{asset}</button></td>
+                                    )
+                                }
+                            }
+                            )}
+                    </tbody>
+                </table>
                 <div id="toggle status"><p>Sort by: {toggleLister}</p></div>
-                <AssetsList assets={context.assetsList} cat={toggleLister} setChosenFile={setChosenFile}/>
+                <AssetsList assets={context.assetsList} cat={toggleLister} setChosenFile={setChosenFile} />
             </div>
             <div className='overwiew-fileOperations'>
-                <FileOperations file={chosenFile}/>
+                <FileOperations file={chosenFile} />
             </div>
 
         </div>

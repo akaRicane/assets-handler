@@ -6,7 +6,7 @@ const NavBar = () => {
         <div className='navbar'>
             <div>
                 <div>
-                    <img src={require('../media/bolAV.png')} alt="app-logo" />
+                    <img className='navbar-pic' src={require('../media/bolAV.png')} alt="app-logo" />
                 </div>
             </div>
             <div>
