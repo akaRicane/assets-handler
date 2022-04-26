@@ -1,7 +1,7 @@
 import React from 'react';
 import { AnalyzerContext } from '../App';
 
-import Analyzer from '../component/Analyzer';
+import {Analyzer} from '../component/Analyzer';
 import NavBar from '../component/NavBar';
 
 const Home = () => {

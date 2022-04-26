@@ -8,12 +8,27 @@ const assetsdb = new Datastore('./server/assetsbase.db');
 assetsdb.loadDatabase();
 
 var recursive = require('recursive-readdir');
+const path = require("path");
 
 const APP = express();
 APP.use(cors());
 const PORT = 3001;
 
 APP.get("/", (req, res) => { console.log(req); res.send("This is from express"); });
+
+APP.get("/file_remove", (req, res) => {
+    const file = req.query["file"];
+    const folder = req.query["folder"];
+    console.log("Query to delete: " + path.join(folder, file));
+    try {
+        fs.unlinkSync(path.join(path.join(folder, file)));
+        res.send("success");
+    }
+    catch (err) {
+        console.log(err);
+        res.send("fail");
+    }
+});
 
 APP.get("/loadAssetsDb", (req, res) => {
     console.log("\n\nNew request to load AssetsDb");
