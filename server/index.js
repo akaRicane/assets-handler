@@ -19,7 +19,7 @@ APP.get("/", (req, res) => { console.log(req); res.send("This is from express");
 APP.get("/file_remove", (req, res) => {
     const file = req.query["file"];
     const folder = req.query["folder"];
-    console.log("Query to delete: " + path.join(folder, file));
+    console.log("\nQuery to delete: " + path.join(folder, file));
     try {
         fs.unlinkSync(path.join(path.join(folder, file)));
         res.send("success");
@@ -30,15 +30,30 @@ APP.get("/file_remove", (req, res) => {
     }
 });
 
+APP.get("/file_rename", (req, res) => {
+    const oldPath = req.query["oldPath"];
+    const newPath = req.query["newPath"];
+    console.log("\nQuery to rename: " + oldPath + " by: " + newPath);
+    fs.rename(oldPath, newPath, (err) => {
+        if (err) {
+            console.log(err);
+            res.send("fail");
+        }
+        else {
+            res.send("success");
+        }
+    })
+});
+
 APP.get("/loadAssetsDb", (req, res) => {
-    console.log("\n\nNew request to load AssetsDb");
+    console.log("\nNew request to load AssetsDb");
     assetsdb.find({}, (err, docs) => {
         if (docs.length !== 0) {
 
             const doc = docs.at(-1)['files'];
             const folder = docs.at(-1)['folder'];
             console.log("AssetsDb loading is done ! (found: " + doc.length + ")\n");
-            res.json({data: doc, folder: folder});
+            res.json({ data: doc, folder: folder });
         }
     })
 });
@@ -56,7 +71,7 @@ APP.get("/analyze", async (req, res) => {
                 dirReader.push(analyzeFile(relPath, folderName));
             }
             const timestamp = Date.now();
-            assetsdb.insert({ timestamp: timestamp, folder: folder, files: dirReader});
+            assetsdb.insert({ timestamp: timestamp, folder: folder, files: dirReader });
             console.log("Assets analysis is done ! (found: " + dirReader.length + ")\n");
             res.json(dirReader);
         })
